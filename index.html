@@ -1,0 +1,16 @@
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>BC Kundenportal</title>
+</head>
+<body>
+  <h1>Willkommen auf dem Business Central Portal</h1>
+  <p>Du bist auf der Subdomain: <strong><span id="subdomain"></span></strong></p>
+
+  <script>
+    const host = window.location.hostname;
+    const sub = host.split('.')[0];
+    document.getElementById("subdomain").innerText = sub;
+  </script>
+</body>
+</html>
