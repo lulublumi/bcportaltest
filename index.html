@@ -41,11 +41,23 @@
     <button onclick="login()">Einloggen</button>
   </div>
 
-  <div id="welcome" class="hidden">
-    <h2>Willkommen, <span id="user"></span>!</h2>
-    <p>Du bist eingeloggt im Portal von <strong><span id="kundenname2"></span></strong>.</p>
-    <button onclick="logout()">Logout</button>
-  </div>
+<div id="welcome" class="hidden">
+  <h2>Willkommen, <span id="user"></span>!</h2>
+  <p>Du bist eingeloggt im Portal von <strong><span id="kundenname2"></span></strong>.</p>
+
+  <hr>
+
+  <h3>Dein Benutzerprofil:</h3>
+  <table border="1" cellpadding="5">
+    <tr><th>Benutzername</th><td id="profil-username"></td></tr>
+    <tr><th>Kundennummer</th><td id="profil-kundennummer"></td></tr>
+    <tr><th>Letzter Login</th><td id="profil-loginzeit"></td></tr>
+    <tr><th>Ansprechpartner</th><td id="profil-ansprechpartner"></td></tr>
+  </table>
+
+  <br>
+  <button onclick="logout()">Logout</button>
+</div>
 
 <script>
   const urlParams = new URLSearchParams(window.location.search);
