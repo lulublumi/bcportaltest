@@ -67,7 +67,7 @@
   }
 
   // Lade die Benutzerdaten dynamisch
-  fetch("users.json")
+  fetch("user.json")
     .then(response => response.json())
     .then(data => {
       nutzerdaten = data[kundenname] || [];
