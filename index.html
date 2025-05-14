@@ -46,30 +46,36 @@
     <p>Du bist eingeloggt im Portal von <strong><span id="kundenname2"></span></strong>.</p>
   </div>
 
-  <script>
-    function getQueryParam(name) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(name);
+ <script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const kundenname = urlParams.get("kunde") || "unbekannt";
+  document.getElementById("kundenname").innerText = kundenname;
+  document.getElementById("kundenname2").innerText = kundenname;
+
+  let nutzerdaten = [];
+
+  // Lade die Benutzerdaten dynamisch
+  fetch("users.json")
+    .then(response => response.json())
+    .then(data => {
+      nutzerdaten = data[kundenname] || [];
+    });
+
+  function login() {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    const user = nutzerdaten.find(user => user.username === username && user.password === password);
+
+    if (user) {
+      document.getElementById("login-form").classList.add("hidden");
+      document.getElementById("welcome").classList.remove("hidden");
+      document.getElementById("user").innerText = user.username;
+    } else {
+      alert("Login fehlgeschlagen. Versuche z. B. demo / 1234 bei testgmbh");
     }
-
-    const kundenname = getQueryParam("kunde") || "unbekannt";
-    document.getElementById("kundenname").innerText = kundenname;
-    document.getElementById("kundenname2").innerText = kundenname;
-
-    function login() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-
-      // Dummy-Loginprüfung – später ersetzen durch Backend-Logik
-      if (username === "demo" && password === "1234") {
-        document.getElementById("login-form").classList.add("hidden");
-        document.getElementById("welcome").classList.remove("hidden");
-        document.getElementById("user").innerText = username;
-      } else {
-        alert("Login fehlgeschlagen. Teste Benutzer: demo / Passwort: 1234");
-      }
-    }
-  </script>
+  }
+</script>
 
 </body>
 </html>
