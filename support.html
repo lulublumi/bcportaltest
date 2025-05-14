@@ -1,0 +1,81 @@
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Support</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
+    }
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      box-sizing: border-box;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #2c3e50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <nav style="background:#2c3e50;padding:10px;margin:-40px -40px 40px -40px;">
+    <a href="dashboard.html" style="color:white;margin-right:20px;">Dashboard</a>
+    <a href="bestellungen.html" style="color:white;margin-right:20px;">Bestellungen</a>
+    <a href="support.html" style="color:white;margin-right:20px;">Support</a>
+    <button onclick="logout()" style="float:right;background:#e74c3c;color:white;border:none;padding:8px 12px;cursor:pointer;">Logout</button>
+  </nav>
+
+  <h1>Supportanfrage</h1>
+  <p>Du bist eingeloggt als <strong><span id="username"></span></strong> im Portal von <strong><span id="kundenname"></span></strong>.</p>
+
+  <form onsubmit="sendSupport(); return false;">
+    <label for="betreff">Betreff:</label>
+    <input type="text" id="betreff" required />
+
+    <label for="nachricht">Nachricht:</label>
+    <textarea id="nachricht" rows="6" required></textarea>
+
+    <button type="submit">Absenden</button>
+  </form>
+
+  <p id="feedback" style="color:green;"></p>
+
+  <script>
+    const kunde = localStorage.getItem("kunde");
+    const user = localStorage.getItem("username");
+
+    if (!kunde || !user) {
+      window.location.href = "index.html";
+    }
+
+    document.getElementById("kundenname").innerText = kunde;
+    document.getElementById("username").innerText = user;
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+
+    function sendSupport() {
+      const betreff = document.getElementById("betreff").value;
+      const nachricht = document.getElementById("nachricht").value;
+
+      // Hier könntest du später eine API ansprechen
+      console.log(`[Support] Von ${user} (${kunde}): ${betreff} - ${nachricht}`);
+
+      document.getElementById("feedback").innerText = "Deine Nachricht wurde gesendet (simuliert).";
+      document.getElementById("betreff").value = "";
+      document.getElementById("nachricht").value = "";
+    }
+  </script>
+
+</body>
+</html>
