@@ -46,13 +46,24 @@
     <p>Du bist eingeloggt im Portal von <strong><span id="kundenname2"></span></strong>.</p>
   </div>
 
- <script>
+<script>
   const urlParams = new URLSearchParams(window.location.search);
   const kundenname = urlParams.get("kunde") || "unbekannt";
   document.getElementById("kundenname").innerText = kundenname;
   document.getElementById("kundenname2").innerText = kundenname;
 
   let nutzerdaten = [];
+
+  // Wenn Session existiert → automatisch einloggen
+  const gespeicherterKunde = localStorage.getItem("kunde");
+  const gespeicherterBenutzer = localStorage.getItem("username");
+
+  if (gespeicherterKunde === kundenname && gespeicherterBenutzer) {
+    // Session aktiv → Willkommen anzeigen
+    document.getElementById("login-form").classList.add("hidden");
+    document.getElementById("welcome").classList.remove("hidden");
+    document.getElementById("user").innerText = gespeicherterBenutzer;
+  }
 
   // Lade die Benutzerdaten dynamisch
   fetch("users.json")
@@ -68,12 +79,23 @@
     const user = nutzerdaten.find(user => user.username === username && user.password === password);
 
     if (user) {
+      // Session speichern
+      localStorage.setItem("username", user.username);
+      localStorage.setItem("kunde", kundenname);
+
+      // UI wechseln
       document.getElementById("login-form").classList.add("hidden");
       document.getElementById("welcome").classList.remove("hidden");
       document.getElementById("user").innerText = user.username;
     } else {
       alert("Login fehlgeschlagen. Versuche z. B. demo / 1234 bei testgmbh");
     }
+  }
+
+  function logout() {
+    localStorage.removeItem("username");
+    localStorage.removeItem("kunde");
+    window.location.reload(); // Seite neu laden
   }
 </script>
 
