@@ -76,6 +76,9 @@
     document.getElementById("login-form").classList.add("hidden");
     document.getElementById("welcome").classList.remove("hidden");
     document.getElementById("user").innerText = gespeicherterBenutzer;
+    document.getElementById("profil-kundennummer").innerText = localStorage.getItem("kundennummer");
+    document.getElementById("profil-ansprechpartner").innerText = localStorage.getItem("ansprechpartner");
+    document.getElementById("profil-loginzeit").innerText = localStorage.getItem("loginzeit");
   }
 
   // Lade die Benutzerdaten dynamisch
@@ -95,10 +98,13 @@
       // Session speichern
       localStorage.setItem("username", user.username);
       localStorage.setItem("kunde", kundenname);
+      localStorage.setItem("kundennummer", user.kundennummer);
+      localStorage.setItem("ansprechpartner", user.ansprechpartner);
+      localStorage.setItem("loginzeit", new Date().toLocaleString());
 
       // UI wechseln
       document.getElementById("login-form").classList.add("hidden");
-      document.getElementById("welcome").classList.remove("hidden");
+      document.getElementById("welcome").classList.remove("hidden");      
       document.getElementById("profil-username").innerText = user.username;
       document.getElementById("profil-kundennummer").innerText = user.kundennummer;
       document.getElementById("profil-ansprechpartner").innerText = user.ansprechpartner;
