@@ -1,0 +1,9 @@
+{
+  "testgmbh": [
+    { "username": "demo", "password": "1234" },
+    { "username": "max", "password": "passwort" }
+  ],
+  "meierkg": [
+    { "username": "lisa", "password": "abc123" }
+  ]
+}
