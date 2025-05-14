@@ -1,9 +1,16 @@
 {
   "testgmbh": [
-    { "username": "demo", "password": "1234" },
-    { "username": "max", "password": "passwort" }
-  ],
-  "meierkg": [
-    { "username": "lisa", "password": "abc123" }
+    {
+      "username": "demo",
+      "password": "1234",
+      "kundennummer": "TG-1001",
+      "ansprechpartner": "Sabine Müller"
+    },
+    {
+      "username": "max",
+      "password": "passwort",
+      "kundennummer": "TG-1002",
+      "ansprechpartner": "Felix Bauer"
+    }
   ]
 }
