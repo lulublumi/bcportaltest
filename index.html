@@ -110,6 +110,8 @@
       document.getElementById("profil-kundennummer").innerText = user.kundennummer;
       document.getElementById("profil-ansprechpartner").innerText = user.ansprechpartner;
       document.getElementById("profil-loginzeit").innerText = new Date().toLocaleString();
+
+      window.location.href = "dashboard.html";
     } else {
       alert("Login fehlgeschlagen. Versuche z. B. demo / 1234 bei testgmbh");
     }
