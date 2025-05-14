@@ -1,0 +1,66 @@
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Bestellungen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+    }
+    th {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+
+  <nav style="background:#2c3e50;padding:10px;margin:-40px -40px 40px -40px;">
+    <a href="dashboard.html" style="color:white;margin-right:20px;">Dashboard</a>
+    <a href="bestellungen.html" style="color:white;margin-right:20px;">Bestellungen</a>
+    <a href="support.html" style="color:white;margin-right:20px;">Support</a>
+    <button onclick="logout()" style="float:right;background:#e74c3c;color:white;border:none;padding:8px 12px;cursor:pointer;">Logout</button>
+  </nav>
+
+  <h1>Bestellungen von <span id="kundenname"></span></h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Bestellnummer</th>
+        <th>Artikel</th>
+        <th>Menge</th>
+        <th>Datum</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1001</td><td>Zucker</td><td>1.000 kg</td><td>01.05.2025</td></tr>
+      <tr><td>1002</td><td>Salz</td><td>500 kg</td><td>02.05.2025</td></tr>
+      <tr><td>1003</td><td>Öl</td><td>750 l</td><td>03.05.2025</td></tr>
+    </tbody>
+  </table>
+
+  <script>
+    const kunde = localStorage.getItem("kunde");
+    if (!kunde) {
+      window.location.href = "index.html";
+    }
+    document.getElementById("kundenname").innerText = kunde;
+
+    function logout() {
+      localStorage.clear();
+      window.location.href = "index.html";
+    }
+  </script>
+
+</body>
+</html>
