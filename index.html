@@ -116,9 +116,8 @@
   }
 
   function logout() {
-    localStorage.removeItem("username");
-    localStorage.removeItem("kunde");
-    window.location.reload(); // Seite neu laden
+      localStorage.clear();
+      window.location.reload();
   }
 </script>
 
