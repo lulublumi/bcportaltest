@@ -2,15 +2,28 @@
 <head>
   <meta charset="UTF-8">
   <title>BC Kundenportal</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+  </style>
 </head>
 <body>
-  <h1>Willkommen auf dem Business Central Portal</h1>
-  <p>Du bist auf der Subdomain: <strong><span id="subdomain"></span></strong></p>
+  <h1>Willkommen im Business Central Portal</h1>
+  <p>Dieses Portal gehört zu: <strong><span id="kundenname"></span></strong></p>
 
   <script>
-    const host = window.location.hostname;
-    const sub = host.split('.')[0];
-    document.getElementById("subdomain").innerText = sub;
+    function getQueryParam(name) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(name);
+    }
+
+    const kunde = getQueryParam("kunde") || "unbekannt";
+    document.getElementById("kundenname").innerText = kunde;
   </script>
 </body>
 </html>
