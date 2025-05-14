@@ -83,39 +83,46 @@
   }
 
   // Lade die Benutzerdaten dynamisch
-  fetch("user.json")
-    .then(response => response.json())
-    .then(data => {
-      nutzerdaten = data[kundenname] || [];
-    });
+function login() {
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-  function login() {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
-
-    const user = nutzerdaten.find(user => user.username === username && user.password === password);
-
-    if (user) {
-      // Session speichern
+  fetch("https://<DEIN-BACKEND>.onrender.com/login", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      kunde: kundenname,
+      username: username,
+      password: password
+    })
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error("Login fehlgeschlagen");
+    }
+    return response.json();
+  })
+  .then(data => {
+    if (data.success) {
+      // Profildaten speichern
+      localStorage.setItem("username", username);
       localStorage.setItem("kunde", kundenname);
-      localStorage.setItem("username", user.username);
-      localStorage.setItem("kundennummer", user.kundennummer);
-      localStorage.setItem("ansprechpartner", user.ansprechpartner);
+      localStorage.setItem("kundennummer", data.kundennummer);
+      localStorage.setItem("ansprechpartner", data.ansprechpartner);
       localStorage.setItem("loginzeit", new Date().toLocaleString());
 
-      // UI wechseln
-      document.getElementById("login-form").classList.add("hidden");
-      document.getElementById("welcome").classList.remove("hidden");      
-      document.getElementById("profil-username").innerText = user.username;
-      document.getElementById("profil-kundennummer").innerText = user.kundennummer;
-      document.getElementById("profil-ansprechpartner").innerText = user.ansprechpartner;
-      document.getElementById("profil-loginzeit").innerText = new Date().toLocaleString();
-
+      // Weiterleitung zum Dashboard
       window.location.href = "dashboard.html";
     } else {
-      alert("Login fehlgeschlagen. Versuche z. B. demo / 1234 bei testgmbh");
+      alert("Login fehlgeschlagen: " + (data.error || "Unbekannter Fehler"));
     }
-  }
+  })
+  .catch(error => {
+    alert("Fehler beim Login: " + error.message);
+  });
+}
 
   function logout() {
       localStorage.clear();
